@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import model.Order;
 import model.Security;
+import model.Trades;
 import model.User;
 
 import static io.restassured.RestAssured.given;
@@ -23,6 +24,8 @@ public class World {
     private Security security;
 
     private Order order;
+
+    private Trades trades;
 
     public ValidatableResponse getResponse() {
         if (response == null) {

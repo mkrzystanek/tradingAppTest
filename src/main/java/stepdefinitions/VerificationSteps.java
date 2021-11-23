@@ -1,12 +1,12 @@
 package stepdefinitions;
 
 import io.cucumber.java.en.Then;
-import org.junit.Assert;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 
 import java.util.Map;
 
 import static java.lang.Boolean.parseBoolean;
-import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
 import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.is;
@@ -34,16 +34,20 @@ public class VerificationSteps {
     @Then("response body contains fields:")
     public void validateResponseBody(Map<String, String> responseBody) {
         for (Map.Entry<String, String> entry : responseBody.entrySet()) {
-            world.getResponse()
-                    .body(
-                            entry.getKey(),
-                            anyOf(
-                                    matchesPattern(entry.getValue()),
-                                    is(parseBoolean(entry.getValue())),
-                                    is(parseFloat(entry.getValue())),
-                                    is(parseInt(entry.getValue()))
-                            )
-                    );
+            if (StringUtils.isNumeric(entry.getValue())) {
+                world.getResponse()
+                        .body(entry.getKey(), is(parseInt(entry.getValue())));
+            } else {
+                world.getResponse()
+                        .body(
+                                entry.getKey(),
+                                anyOf(
+                                        matchesPattern(entry.getValue()),
+                                        is(parseBoolean(entry.getValue())),
+                                        is(NumberUtils.toFloat(entry.getValue()))
+                                )
+                        );
+            }
         }
     }
 
