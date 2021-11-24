@@ -4,6 +4,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import model.Order;
 import model.Security;
+import model.Type;
 import model.User;
 import org.apache.http.entity.ContentType;
 
@@ -32,8 +33,8 @@ public class BackgroundSteps {
         world.setSecurity(createSecurity(new Security(name)));
     }
 
-    @When("{} order is created for price {float} and quantity {int}")
-    public void createOrder(String orderType, double price, int quantity) {
+    @When("{type} order is created for price {float} and quantity {int}")
+    public void createOrder(Type orderType, double price, int quantity) {
         Order order = Order.builder()
                 .fulfilled(false)
                 .price(price)
@@ -43,7 +44,7 @@ public class BackgroundSteps {
                 .type(orderType)
                 .build();
 
-        world.setOrder(createOrder(order));
+        world.getOrders().add(createOrder(order));
     }
 
     private User createUser(User user) {

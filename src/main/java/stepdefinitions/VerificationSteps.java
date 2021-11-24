@@ -1,6 +1,9 @@
 package stepdefinitions;
 
 import io.cucumber.java.en.Then;
+import model.Order;
+import model.Trade;
+import model.Type;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
@@ -8,6 +11,8 @@ import java.util.Map;
 
 import static java.lang.Boolean.parseBoolean;
 import static java.lang.Integer.parseInt;
+import static model.Type.BUY;
+import static model.Type.SELL;
 import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.matchesPattern;
@@ -51,21 +56,39 @@ public class VerificationSteps {
         }
     }
 
-    @Then("order response body contains correct securityId")
-    public void validateOrderSecurityId() {
+    @Then("{type} order response body contains correct securityId")
+    public void validateOrderSecurityId(Type type) {
         assertEquals(
                 "Incorrect securityId!",
                 world.getSecurity().getId(),
-                world.getOrder().getSecurityId()
+                world.findOrderByType(type).getSecurityId()
         );
     }
 
-    @Then("order response body contains correct userId")
-    public void validateOrderUserId() {
+    @Then("{type} order response body contains correct userId")
+    public void validateOrderUserId(Type type) {
         assertEquals(
                 "Incorrect userId!",
                 world.getSavedUser().getId(),
-                world.getOrder().getUserId()
+                world.findOrderByType(type).getUserId()
+        );
+    }
+
+    @Then("trade response body contains correct orderBuyId")
+    public void validateTradeOrderBuyId() {
+        assertEquals(
+                "Incorrect orderBuyId!",
+                world.findOrderByType(BUY).getId(),
+                world.getTrade().getOrderBuyId()
+        );
+    }
+
+    @Then("trade response body contains correct orderSellId")
+    public void validateTradeOrderSellId() {
+        assertEquals(
+                "Incorrect orderSellId!",
+                world.findOrderByType(SELL).getId(),
+                world.getTrade().getOrderSellId()
         );
     }
 }

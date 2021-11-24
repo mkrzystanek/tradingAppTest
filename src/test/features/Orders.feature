@@ -11,8 +11,8 @@ Feature: Orders
       | price     | 10.0           |
       | quantity  | 20             |
       | type      | BUY            |
-    And order response body contains correct securityId
-    And order response body contains correct userId
+    And BUY order response body contains correct securityId
+    And BUY order response body contains correct userId
 
   Scenario: Create a single sell order
     Given user is created with username: "Barry White" and password: "secret"
@@ -24,8 +24,8 @@ Feature: Orders
       | price     | 300.0          |
       | quantity  | 1              |
       | type      | SELL           |
-    And order response body contains correct securityId
-    And order response body contains correct userId
+    And SELL order response body contains correct securityId
+    And SELL order response body contains correct userId
 
   Scenario: Create sell and buy order for the same security
     Given security is created with name: "RTY"
@@ -37,8 +37,8 @@ Feature: Orders
       | price     | 10.0           |
       | quantity  | 20             |
       | type      | SELL           |
-    And order response body contains correct securityId
-    And order response body contains correct userId
+    And SELL order response body contains correct securityId
+    And SELL order response body contains correct userId
 
     Given user is created with username: "Larry White" and password: "secret"
     When BUY order is created for price 10.00 and quantity 20
@@ -48,8 +48,8 @@ Feature: Orders
       | price     | 10.0           |
       | quantity  | 20             |
       | type      | BUY           |
-    And order response body contains correct securityId
-    And order response body contains correct userId
+    And BUY order response body contains correct securityId
+    And BUY order response body contains correct userId
 
   Scenario: Get all orders
     When GET request is made to /api/orders
@@ -67,5 +67,5 @@ Feature: Orders
       | price     | 10.0           |
       | quantity  | 20             |
       | type      | BUY            |
-    And order response body contains correct securityId
-    And order response body contains correct userId
+    And BUY order response body contains correct securityId
+    And BUY order response body contains correct userId

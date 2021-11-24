@@ -11,12 +11,12 @@ public class Order {
     private int quantity;
     private String securityId;
     private String userId;
-    private String type;
+    private Type type;
 
     public Order() {
     }
 
-    public Order(boolean fulfilled, String id, double price, int quantity, String securityId, String userId, String type) {
+    public Order(boolean fulfilled, String id, double price, int quantity, String securityId, String userId, Type type) {
         this.fulfilled = fulfilled;
         this.id = id;
         this.price = price;
@@ -26,7 +26,7 @@ public class Order {
         this.type = type;
     }
 
-    public Order(boolean fulfilled, double price, int quantity, String securityId, String userId, String type) {
+    public Order(boolean fulfilled, double price, int quantity, String securityId, String userId, Type type) {
         this.fulfilled = fulfilled;
         this.price = price;
         this.quantity = quantity;
@@ -83,11 +83,11 @@ public class Order {
         this.userId = userId;
     }
 
-    public String getType() {
+    public Type getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(Type type) {
         this.type = type;
     }
 }
